@@ -5,11 +5,12 @@ Khorrami & Räsänen:"Statistical learning is sufficient for early language acqu
 
 # Model Source
 
-This project's model is based on the work from the following repository, please ensure that you give credit to the creators for their contributions to the model:
+This project's model is based on the work from the following repositories, please ensure that you give credit to the creators for their contributions to the model:
 
 https://github.com/jasonppy/word-discovery
+https://github.com/jasonppy/FaST-VGS-Family
 
-The model, model training and validation as well as data loading scripts are mostly copied from the above repository. However, all changes are commented in the corresponding script lines.
+The model, model training and validation as well as data loading scripts are mostly copied from the above repositories. However, all changes are commented in the corresponding script lines.
 
 
 # Model Description
