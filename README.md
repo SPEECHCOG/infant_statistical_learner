@@ -13,7 +13,7 @@ https://github.com/jasonppy/FaST-VGS-Family
 https://github.com/jasonppy/word-discovery
 
 
-The model and data loading scripts are adopted from https://github.com/jasonppy/word-discovery, whereas the model training and validation scripts are adopted from https://github.com/jasonppy/FaST-VGS-Family. All changes are commented in the corresponding script lines.
+The model (VG-W2V2) and data loading scripts are adopted from https://github.com/jasonppy/word-discovery, whereas the model training and validation scripts are adopted from https://github.com/jasonppy/FaST-VGS-Family (for simultaneouse training of VGS and wave2vec 2.0 piplelines). All changes are commented in the corresponding script lines.
 
 
 # Model Description
