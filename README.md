@@ -5,9 +5,11 @@ Khorrami & Räsänen:"Statistical learning is sufficient for early language acqu
 
 # Model Source
 
-This project's model is based on the work from the following repository, please ensure that you give credit to the creators for their contributions to the model.:
+This project's model is based on the work from the following repository, please ensure that you give credit to the creators for their contributions to the model:
 
 https://github.com/jasonppy/word-discovery
+
+The training and validation codes as well as data loading scripts are mostly copied from the above repository. However, all changes are commented in the corresponding script lines.
 
 
 # Model Description
