@@ -9,7 +9,7 @@ This project's model is based on the work from the following repository, please 
 
 https://github.com/jasonppy/word-discovery
 
-The training and validation codes as well as data loading scripts are mostly copied from the above repository. However, all changes are commented in the corresponding script lines.
+The model, model training and validation as well as data loading scripts are mostly copied from the above repository. However, all changes are commented in the corresponding script lines.
 
 
 # Model Description
