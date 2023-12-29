@@ -28,4 +28,12 @@ The data for the joint speech self-supervised training and visually grounded spe
 
 # How to Use
 
+## Model training and validation
+
+To train the model for speech-self supervised learning SSL-6M specify the tsv file path as well as the output path (for saving the trained model) in scripts/ssl.sh and run the script.
+
+To train the VG-W2V2 model for 2-6 months infants' audiovisual experiments (6-12 months of age), specify the path to VGS-infant json files in the corresponding script (s8M.sh, s10M.sh, s10u.sh, and s12M.sh) and run the script.
+
+## Audiovisual similarity score matrix (S)
+
 
