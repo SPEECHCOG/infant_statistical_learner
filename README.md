@@ -22,7 +22,9 @@ The model is VG-W2V2 and conists of an image procesing pipeline, a speech proces
 
 # Data
 
-# Data subsets
+The data for speech self-supervised learning task is SSL-6M that includes speech captions totalling to 1049 hours of speech. The data is a combination of a subset randomly selected from LibriSpeech captions () and SpokenCOCO captions (). 
+
+The data for joint speech self-supervised training and visually grounded speech processing is VGS-infants and includes subsets of 2,4,and 6 months infant audiovisual experience. The images and audio captions are subsets chosen from MSCOCO images paired with SpokenCOCO captions. The subsets are carefully chosen to reflect the statistics of the infants' audiovisual experinece during corresponding time intervals.     
 
 # How to Use
 
