@@ -13,7 +13,7 @@ https://github.com/jasonppy/FaST-VGS-Family
 https://github.com/jasonppy/word-discovery
 
 
-The model, model training and validation as well as data loading scripts are mostly copied from the above repositories. However, all changes are commented in the corresponding script lines.
+The model and data loading scripts are adopted from https://github.com/jasonppy/word-discovery, whereas the model training and validation scripts are adopted from https://github.com/jasonppy/FaST-VGS-Family. All changes are commented in the corresponding script lines.
 
 
 # Model Description
