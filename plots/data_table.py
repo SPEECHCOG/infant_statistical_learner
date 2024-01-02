@@ -2,10 +2,9 @@ import json
 import pandas as pd
 import scipy
 import numpy
-#%% data
+#%% reading data
 
 p_rws = "/worktmp2/hxkhkh/current/FaST/datavf/coco_pyp/rws_counts_sorted.mat"
-
 path_freq_counts = "/worktmp2/hxkhkh/current/FaST/datavf/coco_pyp/dict_words_selected_counts.json"
 path_label_word = "/worktmp2/hxkhkh/current/FaST/datavf/coco_pyp/dict_words_selected.json"
 p = "/worktmp2/hxkhkh/current/FaST/datavf/coco_pyp/subsets/nsub3_meta.json"

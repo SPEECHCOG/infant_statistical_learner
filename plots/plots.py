@@ -15,10 +15,7 @@ dtype = 'CDI'
 mtype = 'DINO'
 
 
-
 names = ["0", "6 ", "8 ", "10 ", "12 ", "10(u)"]
-
-
 
 # functions
 def plot_all (names , results_recall, results_abx, results_lex, results_sem):
@@ -288,16 +285,9 @@ def find_measure3 (S_path, Snames):
         scats.append(scat)
     return ss,ss_std, cats, scats  
 
-# Snames = ["S_aL_vO"]
-# path_sem = os.path.join(root, "semtest/S/ssl/exp15")
-# S_path = path_sem
-
-# S = np.random.randn(1600, 1600)
-
-
 #%% Recall
-kh
-# manually enter numbers for recall@10 [ssl, r1, r2, r0, r3]
+
+# manually enter numbers for recall@10 [ssl, r1, r2, r0, r3] from output files
 x_recall = ['baseline','exp6M', 'expS1', 'expS2', 'expS3' , 'expS0']
 r_image = [0.2, 0.2, 0.7, 5.2 , 9.8 , 5.0 ]
 r_speech = [0.2, 0.2, 0.9, 6.1, 11.7 , 6.4]
@@ -309,12 +299,8 @@ results_recall = [r_image, r_speech]
 #................
 # S0: 6M: Audio R@10 0.064 Image R@10 0.050     FB: Audio R@10 0.055 Image R@10 0.050
 
-
-
 # ABX 
-
 models = ['baseline', 'exp15','expS1', 'expS2', 'expS3', 'expS0']
-
 dict_scores = {}
 dict_bs = {}
 dict_bl = {}
@@ -353,11 +339,13 @@ Snames = ["S_aL_vM","S6M_aL_vM", "S1_aL_vM","S2_aL_vM","S3_aL_vM","S0_aL_vM"  ]
 s_M, std_M, cat_M, scat_M = find_measure3 (path_sem ,Snames)
 # Snames = ["S_aL_vB","S6M_aL_vB", "S1_aL_vB","S2_aL_vB","S3_aL_vB" ,"S0_aL_vB" ]
 # s_B, std_B, cat_B, scat_B = find_measure3 (path_sem ,Snames)
-
 results_sem = [s_M, std_M]
-#%%
-# plotting
+
+#%% plotting
+ 
 plot_all (names , results_recall, results_abx, results_lex, results_sem)
+
+#%% Other outputs
 
 from scipy.io import savemat
 mydict = {"ages": names, "recall": results_recall, "ABX": results_abx ,"Lextest": results_lex,"Semtest": results_sem}
@@ -379,11 +367,7 @@ file_json = p  +  ".json"
 with open(file_json, "w") as fp:
     json.dump(data,fp) 
 
-# testing
-with open(file_json, "r") as fp:
-    d = json.load(fp) 
-
-#%%
+#%% Other outputs
 # for Okko
 # write category-based results on json file (for Okko)
 data = {}
@@ -467,7 +451,7 @@ with open(file_json, "w") as fp:
 # testing
 with open(file_json, "r") as fp:
     d = json.load(fp) 
-#%%
+#%% correlations
 path_save = "/worktmp2/hxkhkh/current/semtest/results/correlations/"
 from scipy import stats
 
