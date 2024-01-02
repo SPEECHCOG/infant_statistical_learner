@@ -13,7 +13,7 @@ https://github.com/jasonppy/FaST-VGS-Family
 https://github.com/jasonppy/word-discovery
 
 
-Especifically, the scripts in "datasets", "models", "steps" as well as run_spokencoco.py are copied from the above repositories. The model (VG-W2V2) and data loading scripts are adopted from https://github.com/jasonppy/word-discovery, whereas the model training and validation scripts are adopted from https://github.com/jasonppy/FaST-VGS-Family, for simultaneouse training of VGS and wave2vec 2.0 piplelines. All changes are commented in the corresponding script lines.
+Especifically, the scripts in "datasets", "models", "steps" as well as run_spokencoco.py are copied from the above repositories. The model (VG-W2V2) and data loading scripts are adopted from https://github.com/jasonppy/word-discovery, whereas the model training and validation scripts are adopted from https://github.com/jasonppy/FaST-VGS-Family, to have simultaneous training of VGS and wave2vec 2.0 pipelines. All further changes are commented in the corresponding script lines.
 
 
 # Model Description
