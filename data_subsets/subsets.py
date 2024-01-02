@@ -8,8 +8,9 @@ import nltk
 import numpy as np
 import copy  
 
-#%%
-######################### reading train and val data
+#%% step 0. reading MSCOCO data
+
+# reading train and val data
 
 dataDir='../../data/coco_pyp/MSCOCO'
 dataType_train='train2014'
@@ -33,6 +34,7 @@ for key, value in cats_id_to_name.items():
     catnames_list.append(value)
     
 #%% step 1: building data dictionaries
+
 # We work with "train " data from Karpathy split 
 
 def find_image_unique_labels (imID, coco):
@@ -145,9 +147,6 @@ def find_dict_image_to_nouns (dict_image_id_to_captions):
             nounslist.append(nouns)
         dict_image_to_nouns [key_imID] = nounslist
     return dict_image_to_nouns
-
-
-
 
 data = read_captions_from_json()
 dict_image_id_to_captions = find_dict_image_to_captions (data)
