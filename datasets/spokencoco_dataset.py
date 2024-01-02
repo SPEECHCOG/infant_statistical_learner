@@ -1,3 +1,11 @@
+# This file is mostly copied from https://github.com/jasonppy/FaST-VGS-Family/blob/master/datasets/spokencoco_dataset.py
+# The visual data processing pipeline is copied from : https://github.com/jasonppy/word-discovery/blob/master/datasets/spokencoco_dataset.py
+
+# All changes to the otiginal file are commented as "kh"
+# The changes are manily made to 
+# 1. replace Faster-RCNN image features with DINO image features.  
+# 2. read json files of 8,10,12 months audiovisual COCO-infants subsets instead of the original SpokenCOCO train set.
+
 import json
 import random
 import numpy as np
@@ -14,24 +22,7 @@ logger = logging.getLogger(__name__)
 
 from PIL import Image
 import torchvision.transforms as transforms
-
-
-# data_root = "/worktmp2/hxkhkh/current/FaST/data/coco_pyp"
-# audio_dataset_json_file = os.path.join(data_root, "SpokenCOCO/SpokenCOCO_val_unrolled_karpathy.json")
-# with open(audio_dataset_json_file, 'r') as fp:
-#     data_json = json.load(fp)
-# data = data_json['data']
-        
-# train_img_dataset_h5py_file = os.path.join(data_root, "coco_img_feat/SpokenCOCO_train_imgfeat.hdf5")
-# train_imgid2index_file = os.path.join(data_root, "SpokenCOCO/SpokenCOCO_train_imgid2idex.json")
-# train_imgid2ordered_indices_file = os.path.join(data_root, "SpokenCOCO/SpokenCOCO_train_imgid2ordered_indices.pkl")
-    
-# train_img_data = h5py.File(train_img_dataset_h5py_file, 'r')
-# with open(train_imgid2index_file, 'r') as fp:
-#     train_img_id2index = json.load(fp)    
-# with open(train_imgid2ordered_indices_file, 'rb') as f:
-#     train_img_id2ordered_indices = pickle.load(f)
-    
+  
 
 class ImageCaptionDataset(Dataset):
     @staticmethod
@@ -40,7 +31,7 @@ class ImageCaptionDataset(Dataset):
         #parser.add_argument("--raw_audio_base_path", type=str, default="../../../../data/coco_pyp/SpokenCOCO")
         parser.add_argument("--afiles", type=str, default="COCO")
         parser.add_argument("--vfiles", type=str, default="masked")
-        parser.add_argument("--semtest_root", type=str, default="../../semtest/")
+        parser.add_argument("--semtest_root", type=str, default="../../semtest/") # kh: added this for reading COCO-Semtest data
         parser.add_argument("--image_type", type=str, default="normal")
         parser.add_argument("--subset", type=str, default="all")
         parser.add_argument("--img_feat_len", type=int, help="num of img feats we will use", choices=list(range(1,37)), default=36)
@@ -56,25 +47,24 @@ class ImageCaptionDataset(Dataset):
         
         if split == "train":
             if args.subset == "all":
-                # for original data
+                # kh: for original data
                 print ('############# here is training on whole COCO data ###############')
                 audio_dataset_json_file = os.path.join(args.data_root, "coco_pyp/SpokenCOCO/SpokenCOCO_train_unrolled_karpathy.json")
             else:
-                # for subsets
+                # kh: for subsets
                 print ('############# here is training on the ' + args.subset + ' data ###############')
                 audio_dataset_json_file = '../../../../datavf/coco_pyp/subsets/SpokenCOCO_train_' + args.subset + '.json'
         elif split == "val" or split == "dev":
             if self.args.test:
+                # kh: json file for semtest data
                 audio_dataset_json_file = os.path.join(self.args.semtest_root , 'data.json')
-                # json file for semtest data
             else:
                 audio_dataset_json_file = os.path.join(args.data_root, "coco_pyp/SpokenCOCO/SpokenCOCO_val_unrolled_karpathy.json")
         
-        
+        # kh: train base paths are modified to match the COCO-infants path in case of masked/blurred train images
         self.audio_base_path = os.path.join(args.data_root, "coco_pyp/SpokenCOCO") 
-        
         if args.image_type == "normal":
-            # for otiginal images
+            # kh: for otiginal images
             print ('############# here is training on normal images ###############')
             self.image_base_path = os.path.join(args.data_root, "coco_pyp/MSCOCO")
         elif args.image_type == "masked":
@@ -90,9 +80,8 @@ class ImageCaptionDataset(Dataset):
             elif split == "val" or split == "dev":
                 self.image_base_path = os.path.join(args.data_root, "coco_pyp/MSCOCO")
         
-        # for masked and blured images:
         
-        
+        # kh: image transforms for DINO image features
         if "train" not in split:
             self.image_transform = transforms.Compose(
                 [transforms.Resize(256, interpolation=Image.BICUBIC), transforms.CenterCrop(224), transforms.ToTensor(), transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
@@ -149,11 +138,8 @@ class ImageCaptionDataset(Dataset):
         return len(self.data)
 
     def collate(self, batch):
-        #print('#################################')
-        #print(batch)
-        vals = list(zip(*batch))
-        #print(vals)
 
+        vals = list(zip(*batch))
         collated = {}
         # collated['visual_feats'] = torch.stack(vals[0])
         # collated['boxes'] = torch.stack(vals[1])

@@ -1,79 +1,30 @@
+# # This file is mostly copied from https://github.com/jasonppy/FaST-VGS-Family/blob/master/datasets/libri_dataset.py
+# All changes to the otiginal file are commented as "kh"
+
 # mostly borrowed from fairseq/fairseq/data/audio/hubert_dataset.py
 import random
 import numpy as np
 import os
 import torch
 import torch.nn.functional
-import random
+
 import soundfile as sf
 from torch.utils.data import Dataset
-import pickle
-import itertools
+import csv
 import logging
 logger = logging.getLogger(__name__)
 
 
-# manifest_path = "/worktmp2/hxkhkh/current/FaST/data/LS/libri_fn_root/train.tsv"
-# max_keep = 16000*80
-# min_keep = 32000
-# kh
-import csv
 def read_tsv(file_path):
     with open(file_path, 'r', encoding='utf-8') as tsv_file:
         reader = csv.reader(tsv_file, delimiter='\t')
         names = [row[0] for row in reader]
     return names
 
-# def load_audio(manifest_path, max_keep, min_keep):
-#     # Kh: I added this
-#     trash = []
-#     hours = []
-#     # Kh
-#     n_long, n_short = 0, 0
-#     names, inds, sizes = [], [], []
-#     with open(manifest_path) as f:
-#         # Kh: I chaned this
-#         #root = f.readline().strip()
-#         # Kh
-#         f.readline().strip()
-#         for ind, line in enumerate(f):
-#             items = line.strip().split("\t")
-#             assert len(items) == 2, line
-#             sz = int(items[1])
-#             if min_keep is not None and sz < min_keep:
-#                 n_short += 1
-                
-#             elif max_keep is not None and sz > max_keep:
-#                 n_long += 1
-#                 trash.append(items)
-#             else:
-#                 #kh: i changed this 
-#                 #names.append(items[0])
-#                 file_splits = items[0].split("/")[-5:]
-#                 file_name = '/'.join(file_splits)
-                         
-#                 names.append(file_name)
-#                 #kh
-                
-#                 inds.append(ind)
-#                 sizes.append(sz)
-#                 hours.append((sz/16000)/3600)
-#     logger.info(
-#         (
-#             f"max_keep={max_keep}, min_keep={min_keep}, "
-#             f"loaded {len(names)}, skipped {n_short} short and {n_long} long, "
-#             f"longest-loaded={max(sizes)}, shortest-loaded={min(sizes)}"
-#         )
-#     )
- 
-#     return names
-
-
 class LibriDataset(Dataset):
     @staticmethod
     def add_args(parser):
         parser.add_argument("--libri_fn_root", type=str, default="../../../../datavf/ssl_root/", help="root for tsv files")
-        #parser.add_argument("--data_root", type=str, default="../../../../data/")
         parser.add_argument("--libri_max_seq_len", type=float, default=15.6)
         parser.add_argument("--libri_val_bzs", type=int, default=64)
         parser.add_argument("--sample_rate", type=int, default=16000)
