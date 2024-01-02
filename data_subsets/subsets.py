@@ -6,11 +6,7 @@ import cv2
 from matplotlib import pyplot as plt
 import nltk
 import numpy as np
-import copy
-
-
-
-save_path =   '/worktmp2/hxkhkh/current/FaST/plots/vf/distributions/new/'  
+import copy  
 
 #%%
 ######################### reading train and val data
@@ -36,8 +32,8 @@ catnames_list = []
 for key, value in cats_id_to_name.items():
     catnames_list.append(value)
     
-#%% step 1
-
+#%% step 1: building data dictionaries
+# We work with "train " data from Karpathy split 
 
 def find_image_unique_labels (imID, coco):
     annId_img = coco.getAnnIds( imgIds=imID, iscrowd=False) 
@@ -98,9 +94,6 @@ dict_image_to_label_all = dict_image_to_label_train #{**dict_image_to_label_trai
 dict_img_id_to_path_all = {**dict_img_id_to_path_train , **dict_img_id_to_path_val}
 dict_img_path_to_id_all = {**dict_img_path_to_id_train , **dict_img_path_to_id_val}
 
-    
-#%% steps 2 and 3
-
 def sort_object (input_dict, reverse):
     objects = list(input_dict.keys())
     values = list (input_dict.values())
@@ -153,20 +146,16 @@ def find_dict_image_to_nouns (dict_image_id_to_captions):
         dict_image_to_nouns [key_imID] = nounslist
     return dict_image_to_nouns
 
-#%% step 2
 
-# We work with "train " data from Karpathy split 
+
 
 data = read_captions_from_json()
 dict_image_id_to_captions = find_dict_image_to_captions (data)
-                 
-#%% step 3
-
 dict_image_to_nouns = find_dict_image_to_nouns (dict_image_id_to_captions)
 
-#%% automatically getting names using a threshold
+#%% step 2: getting names (words) for object labels
 #%% 
-
+# 2.1. automatically getting names using a threshold
 dict_unique_nouns = {}
 for key_imId, value_caplists in dict_image_to_nouns.items():
     for cap in value_caplists:
@@ -185,8 +174,8 @@ for counter, n in enumerate(unique_nouns_sorted):
     dict_unique_nouns_freq10[n] = unique_nouns_counts_sorted [counter]
 
 
-#%% selecting proper names
-#%%
+#%% 
+# 2.2. selecting proper names
 from gensim.models import KeyedVectors
 model = KeyedVectors.load_word2vec_format('/worktmp2/hxkhkh/current/Dcase/model/word2vec/GoogleNews-vectors-negative300.bin', binary=True)
 
@@ -239,7 +228,9 @@ for c in catnames_list:
         print(c)
         
 #%%
-# This section asls user for selecting relevant words
+# 2.3. Manaual selection of phonologically relevant words
+ 
+# This section asks user to select relevant words
 
 # dict_words_sorted = {}
 # dict_words_selected = {}
@@ -260,18 +251,18 @@ for c in catnames_list:
 #     dict_words_selected_counts [label] = counts       
 
 
-#%% saving the results
+#%% 
+
+# 2.4. saving the results
 
 # caption_json = "/worktmp2/hxkhkh/current/FaST/data/coco_subsets/dict_words_selected.json"
 # with open(caption_json, "w") as fp:
 #     json.dump(dict_words_selected,fp) 
 
-
 # caption_json = "/worktmp2/hxkhkh/current/FaST/data/coco_subsets/dict_words_selected_counts.json"
 # with open(caption_json, "w") as fp:
 #     json.dump(dict_words_selected_counts,fp)
-    
-        
+            
 # with open(caption_json, 'r') as fp:
 #     data_json_test = json.load(fp)
 
@@ -287,7 +278,7 @@ with open(caption_json, 'r') as fp:
    
 #%%
 
-# manually filtering words
+# 2.5.  manually filtering words
 dict_words_selected_filtered = copy.deepcopy(dict_words_selected)
 
 dict_words_selected_filtered ['baseball'] = ['baseball bat']
@@ -300,7 +291,7 @@ dict_words_selected_filtered ['handbag'] = ['purse'] # this should be changed to
 dict_words_selected_filtered ['dryer'] = ['hair dryer']
 
 #%%
-
+# 2.6. saving name dictionaries
 frequent_counts_sorted = sorted (dict_words_selected_counts.items(), key=lambda x:x[1], reverse=True)
 
 words_sorted = []
@@ -321,8 +312,7 @@ file_json = "/worktmp2/hxkhkh/current/FaST/datavf/coco_pyp/dict_sorted_objects.j
 with open(file_json, "w") as fp:
     json.dump(data_labels_sorted,fp)
 #%% 
- 
-     
+# step 3.1. buliding list of all possible pairs (based on object accepted names)
 all_possible_pairs = []
 all_possible_pairs_counts = []
 for counter, value in enumerate(label_word_sorted):
@@ -346,7 +336,8 @@ for counter, value in enumerate(label_word_sorted):
     all_possible_pairs.append(pairs_list) 
     all_possible_pairs_counts.append(len(pairs_list))              
 
-#%% sorting based on all possible pairs # The main sorting is happening here #
+#%% 
+# 3.2. sorting based on all possible pairs # The main sorting is happening here #
 
 all_possible_pairs_counts_sorted = np.sort(all_possible_pairs_counts)[::-1]
 ind_sorted = np.argsort(all_possible_pairs_counts)[::-1]
@@ -354,12 +345,10 @@ all_possible_pairs_sorted = [all_possible_pairs[i] for i in ind_sorted]
 label_word_final = [label_word_sorted[i] for i in ind_sorted]
 
 # you should work with "label_word_final"
-
-
 #%% 
-from sklearn.utils import shuffle
+# 3.3. Shuffling
 
-     
+from sklearn.utils import shuffle    
 pool_all_organized = []
 pool_all = {}
 
@@ -373,16 +362,13 @@ for ind, pool_lw in enumerate(all_possible_pairs_sorted):
             pool_all[item].append(ind)
         else:
             pool_all[item].append(ind)
-kh            
-#%% RWS
+            
+#%% RWS (real world statistics)
 
-# 2 months to 4 months of simulation  (or going to 6 months and see when the learning starts to happen)
-#######        simulatin the language experinece       ########
-
-###############################   input values ################################
-##########################   select proper subset #############################  
-
-# consider 60, 120, 180 days with beta = 0.5
+#######        simulating the audiovisual language experinece (2,4,6 months)       ########
+  
+#######        60, 120, 180 days with co-occurrence factor of beta = 0.5       ########
+ 
 
 ###############################
 
@@ -422,8 +408,19 @@ subset_name = 'subset0M'
 simulation_days = 120 # days ( 4 months)
 minutes_per_day = 56.1
 beta = 0.50 # co-occurrence factor
-
 #%%
+
+# select subset to be prepared: e.g.,
+
+subset_name = 'subset3'
+    
+simulation_days = 180 # days ( 6 months)
+minutes_per_day = 56.1
+beta = 0.50 # co-occurrence factor
+
+#%% 
+# step 4. calculating the total time needed for each category in each subset based on RWS
+
 total_time = (1/60) * simulation_days * minutes_per_day # hours
 total_time_co_occurrence = beta * total_time 
 print(total_time_co_occurrence)
@@ -439,7 +436,7 @@ print(total_time_co_occurrence)
 #######    real word statistic for namings frequencies ( # / hour)    ########
 
 from scipy.io import loadmat
-file_name = save_path + 'rws_counts_sorted.mat'
+file_name = '/worktmp2/hxkhkh/current/FaST/plots/vf/distributions/new/rws_counts_sorted.mat'
 rws_sorted = loadmat(file_name, variable_names = 'data')
 rws_data = rws_sorted['data'][0]   
 rws_data_short = rws_data[0:80]
@@ -473,9 +470,9 @@ for ind_label, tco in enumerate(total_co_occurrence_rounded):
     dict_rws [ind_label] = tco
 
 
-#%%
-# iterative algorithm 
-# for selecting pairs for each category considering overlapping categories
+#%% step 5. 
+# heuristic algorithm for selecting speech-image pairs for each object category
+
 dict_selected_pairs = {}
 dict_selected_stat = {}
 
@@ -499,7 +496,7 @@ for key_pair, list_ind in pool_all.items():
         
     
 #%%    
-# check if numer of needed pairs in each category are provided
+# check if number of needed pairs in each category are provided
 # there are very few cases of mismatch and that's because of repeating pairs
 # this hapens because some namings are repeated twice in one sentence 
 # this will be solved at the next step at unifying the pairs as a unique list
@@ -511,8 +508,9 @@ for key_ind in dict_selected_stat:
         mismatch_cases.append(key_ind)
 
 
-#%% 
-# unifying the pairs as a unique list
+#%% step 6. post-processing
+
+# 6.1. unifying the pairs as a unique list
 # the length of the final list is smaller than s because of the overlapping cases
 
 pool_selected = []
@@ -523,7 +521,7 @@ for key, value in dict_selected_pairs.items():
 
 
 #%% 
-# converting pool and data to dictionaries to make the search faster
+# 6.2. converting pool and data to dictionaries to make the search faster
 
 dict_pool_selected = {}
 for p in pool_selected:
@@ -534,18 +532,19 @@ for p in pool_selected:
     else:
         dict_pool_selected [imID].append(p[1])
 
-dict_data = {}
-for d in data:
-    caption_d = d['caption']['text']
-    im = d['image']
-    imID= dict_img_path_to_id_all[im]
-    if imID not in dict_data:
-        dict_data[imID] = []
-        dict_data[imID].append(caption_d)
-    else:
-        dict_data[imID].append(caption_d)
+# dict_data = {}
+# for d in data:
+#     caption_d = d['caption']['text']
+#     im = d['image']
+#     imID= dict_img_path_to_id_all[im]
+#     if imID not in dict_data:
+#         dict_data[imID] = []
+#         dict_data[imID].append(caption_d)
+#     else:
+#         dict_data[imID].append(caption_d)
 
-#%%    
+#%%  
+# 6.3. Final list  
 data_subset = []    
 for d in data:
     caption_d = d['caption']['text']
@@ -558,6 +557,7 @@ for d in data:
     
 
 #%%
+# 6.4. Saving the results
 data_json_subset = {}
 data_json_subset ['data'] = data_subset
 
@@ -567,156 +567,3 @@ with open(file_json, "w") as fp:
 
 
 
-#%%
-import json
-
-# getting SSL subset by removing the largest VGS subset from data
-
-# reading the whole data
-
-audio_dataset_json_file = '/worktmp2/hxkhkh/current/FaST/data/coco_pyp/SpokenCOCO/SpokenCOCO_train_unrolled_karpathy.json'
-with open(audio_dataset_json_file, 'r') as fp:
-    data_json = json.load(fp)
-data = data_json['data']
-
-
-# reading vgs subsets to be reduced from the data
-
-
-subset_name = 'subset3'
-
-file_json = "/worktmp2/hxkhkh/current/FaST/datavf/coco/subsets/SpokenCOCO_train_" + subset_name +  ".json"
-with open(file_json, 'r') as fp:
-    data_json_vgs = json.load(fp)
-    
-data_subset3_vgs = data_json_vgs['data']
-
-
-subset_name = 'subset0A'
-
-file_json = "/worktmp2/hxkhkh/current/FaST/datavf/coco/subsets/SpokenCOCO_train_" + subset_name +  ".json"
-with open(file_json, 'r') as fp:
-    data_json_vgs = json.load(fp)
-    
-data_subset0A_vgs = data_json_vgs['data']
-
-#%%
-
-
-# saving data SSL json file
-
-data_subset_SSL = []    
-for d in data:
-    if d not in data_subset3_vgs and d not in data_subset0A_vgs:
-        data_subset_SSL.append(d)
-        
-data_json_SSL = {}
-data_json_SSL ['data'] = data_subset_SSL
-file_json = "/worktmp2/hxkhkh/current/FaST/datavf/coco/subsets/SpokenCOCO_train_SSL.json"
-with open(file_json, "w") as fp:
-    json.dump(data_json_SSL,fp) 
-
-
-#%%
-
-# testing 
-import json
-    
-subset_name = 'SSL'
-
-file_json = "/worktmp2/hxkhkh/current/FaST/datavf/coco/subsets/SpokenCOCO_train_" + subset_name +  ".json"
-with open(file_json, 'r') as fp:
-    data_json_test = json.load(fp)
-    
-data_subset_test = data_json_test['data']
-    
-print(len(data_subset_test))
-print(len(data_subset_test)/64)
-
-
-######### to measure the speech time
-import soundfile as sf
-import os 
-path_wav = '/worktmp2/hxkhkh/current/FaST/data/coco_pyp/SpokenCOCO/'
-seconds_orig = []
-seconds_applied = []
-for d in data_subset_test:
-    audiofile = d['caption']['wav']
-    path = os.path.join(path_wav,audiofile)
-    x, sr = sf.read(path, dtype = 'float32')
-    length_orig = len(x)
-    time_orig = length_orig /sr
-    seconds_orig.append(time_orig)
-    
-    if length_orig > sr * 8:
-        seconds_applied.append(8)
-    else:
-        seconds_applied.append(time_orig)
-    
-hours = sum(seconds_orig)/3600
-print(' ..... total time is ....' + str(hours))
-
-hours_applied = sum(seconds_applied)/3600
-print(' ..... total time is ....' + str(hours_applied))
-
-
-#%%
-######### to get statistics of COCO
-
-audio_dataset_json_file = '/worktmp2/hxkhkh/current/FaST/data/coco_pyp/SpokenCOCO/SpokenCOCO_train_unrolled_karpathy.json'
-with open(audio_dataset_json_file, 'r') as fp:
-    data_json = json.load(fp)
-data = data_json['data']
-
-train_size = len (data)
-
-
-audio_dataset_json_file = '/worktmp2/hxkhkh/current/FaST/data/coco_pyp/SpokenCOCO/SpokenCOCO_val_unrolled_karpathy.json'
-with open(audio_dataset_json_file, 'r') as fp:
-    data_json = json.load(fp)
-data = data_json['data']
-
-val_size = len (data)
-
-total_size = train_size + val_size
-total_time = 742 # hours
-size_per_hour = round(total_size / total_time )
-seconds_per_utt = round ((total_time/total_size) * 3600 , 2)
-
-#%%
-########## to copy images and speech of subsets 
-
-import json
-import os
-import shutil    
-
-path_images = '/worktmp2/hxkhkh/current/FaST/data/coco_pyp/MSCOCO/'
-path_wav = '/worktmp2/hxkhkh/current/FaST/data/coco_pyp/SpokenCOCO/'
-
-dest_images = '/worktmp2/hxkhkh/current/FaST/data/coco_example/subset1/images/'
-dest_wavs = '/worktmp2/hxkhkh/current/FaST/data/coco_example/subset1/wavs/'
-
-subset_name = 'subset1'
-file_json = "/worktmp2/hxkhkh/current/FaST/data/coco/subsets/SpokenCOCO_train_" + subset_name +  ".json"
-with open(file_json, 'r') as fp:
-    data_json_test = json.load(fp)
-    
-data_subset_test = data_json_test['data']
-for counter, item in enumerate(data_subset_test):
-    image = item['image']
-    wav = item['caption']['wav']
-    image_file = os.path.join(path_images, image)
-    wav_file = os.path.join(path_wav, wav)
-    
-    # use names or replace with index
-    # im = (image.split('/'))[-1]
-    # w = (wav.split('/'))[-1]
-    # print(im)
-    # print(w)
-    im = str(counter) + '.jpg'
-    w = str(counter) + '.wav'
-    image_dest_file = os.path.join(dest_images, im)
-    wav_dest_file = os.path.join(dest_wavs, w)
-    shutil.copy(image_file, image_dest_file)
-    shutil.copy(wav_file, wav_dest_file)
-    

@@ -1,5 +1,5 @@
 #%%
-#thi is the process of saving test data in json karapathy format
+#this is the process of saving Semtest test data in json karapathy format
 #%% below is related to reading test data
 import json
 import os
