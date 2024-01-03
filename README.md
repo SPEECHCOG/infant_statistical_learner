@@ -38,4 +38,4 @@ To train the VG-W2V2 model for 2-6 months infants' audiovisual experiments (6-12
 
 ## Audiovisual similarity score matrix (S)
 
-After training the models, run semtest.sh script to obtain S matrix used for COCO-Semtest word meaning score (https://github.com/SPEECHCOG/COCO_Semtest). You need to give the test data paths as well as the path to save the S matrix before running the script. Please use this link to download the test data. 
+After training the models, run semtest.sh script to obtain S matrix used for COCO-Semtest word meaning score (https://github.com/SPEECHCOG/COCO_Semtest). You need to give the test data paths as well as the path to save the S matrix before running the script. Please find the list of test images and audio files in COCO_Semtest repository. 
