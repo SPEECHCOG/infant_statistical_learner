@@ -30,7 +30,7 @@ The data for the joint speech self-supervised training and visually grounded spe
 
 ## Model training and validation
 
-Please follow the source repositories for downloading and saving audio files from SpokenCOCO and LibriSpeech audio files, MSCOCO images as well as json file names for the Karpathy split. The main difference here is that instead of the SpokenCOCO_train_unrolled_karpathy.json file, the model reads json files provided for each audiovisual training subset and 6 months speech-only training set provided within the splits folder. The subset1, subset2, and subset3 json files include data for 8 months, 10 months, and 12 months age infant, respectively, whereas the subset0A includes data for 10 months uniform distribution.
+Please follow the source repositories for downloading and saving audio files from SpokenCOCO and LibriSpeech audio files, MSCOCO images as well as json file names for the Karpathy split. The main difference here is that instead of the SpokenCOCO_train_unrolled_karpathy.json file, the model reads json files provided for each audiovisual training subset. The subset1, subset2, and subset3 json files include data for 8 months, 10 months, and 12 months age infant, respectively, whereas the subset0A includes data for 10 months uniform distribution. The tsv files for training and validating 6 months speech-only model are also included in the splits folder.
 
 To train the model for speech self-supervised learning SSL-6M specify the path to ssl6M_root as well as the output exp path (for saving the trained model) in scripts/ssl.sh and run the script. After training is completed, you can use best_bundle.pth file as starting point for audiovisual learning pipeline. 
 
