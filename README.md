@@ -24,17 +24,17 @@ The model is VG-W2V2 and conists of an image procesing pipeline, a speech proces
 
 The data for speech self-supervised learning task is SSL-6M that includes speech captions totalling to 1049 hours of speech. The data is a combination of a subset randomly selected from LibriSpeech (https://www.openslr.org/12) training set (175892 clips, 602.6 h) and SpokenCOCO (https://groups.csail.mit.edu/sls/downloads/placesaudio/index.cgi) training set (370121 clips, 446.4 h). 
 
-The data for the joint speech self-supervised training and visually grounded speech processing is VGS-infant and includes subsets that reflect the statistics of the infants' audiovisual experinece for the intervals of 2, 4, and 6 months. The images and audio captions are subsets chosen from MSCOCO images (https://cocodataset.org) paired with SpokenCOCO captions. Please use this link to download the tsv and json files that include the list of the speech and image files that are utilized in each of the SSL-6M and VGS-infant training scenarios. 
+The data for the joint speech self-supervised training and visually grounded speech processing is VGS-infant and includes subsets that reflect the statistics of the infants' audiovisual experinece for the intervals of 2, 4, and 6 months. The images and audio captions are subsets chosen from MSCOCO images (https://cocodataset.org) paired with SpokenCOCO captions. Please the list of the speech and image files that are utilized in each of the SSL-6M and VGS-infant training scenarios in splits.zip file. 
 
 # How to Use
 
 ## Model training and validation
 
-Please follow the source repositories for downloading and saving audio files from SpokenCOCO and LibrisPeech audio files, MSCOCO images as well as json file names for Karpathy split. The main difference here is that instead of the SpokenCOCO_train_unrolled_karpathy.json file, the model reads json files provided for each audiovisual training subset and speech-only training set provided within the splits folder. The subset1, subset2, and subset3 json files include data for 8 months, 10 months, and 12 months age infant, respectively, whereas the subset0A includes data for 10 months uniform distribution.
+Please follow the source repositories for downloading and saving audio files from SpokenCOCO and LibrisPeech audio files, MSCOCO images as well as json file names for Karpathy split. The main difference here is that instead of the SpokenCOCO_train_unrolled_karpathy.json file, the model reads json files provided for each audiovisual training subset and 6 months speech-only training set provided within the splits folder. The subset1, subset2, and subset3 json files include data for 8 months, 10 months, and 12 months age infant, respectively, whereas the subset0A includes data for 10 months uniform distribution.
 
-To train the model for speech-self supervised learning SSL-6M specify the tsv file path as well as the output exp path (for saving the trained model) in scripts/ssl.sh and run the script.
+To train the model for speech-self supervised learning SSL-6M specify the path to ssl6M_root as well as the output exp path (for saving the trained model) in scripts/ssl.sh and run the script.
 
-To train the VG-W2V2 model for 2-6 months infants' audiovisual experiments (6-12 months of age), specify the path to VGS-infant json file and the output exp folder in the corresponding script (s8M.sh, s10M.sh, s10u.sh, and s12M.sh) and run the script.
+To train the VG-W2V2 model for 2-6 months infants' audiovisual experiments (6-12 months of age), specify the path to the subsets folder (which includes json data files subsets) and the path to the output exp folder in the corresponding script (s8M.sh, s10M.sh, s10u.sh, and s12M.sh) and run the script.
 
 ## Audiovisual similarity score matrix (S)
 
