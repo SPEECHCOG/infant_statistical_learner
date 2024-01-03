@@ -34,7 +34,7 @@ Please follow the source repositories for downloading and saving audio files fro
 
 To train the model for speech self-supervised learning SSL-6M specify the path to ssl6M_root as well as the output exp path (for saving the trained model) in scripts/ssl.sh and run the script. After training is completed, you can use best_bundle.pth file as starting point for audiovisual learning pipeline. 
 
-To train the VG-W2V2 model for 2-6 months infants' audiovisual experiments (6-12 months of age), specify the path to the subsets folder (which includes json data files subsets) and the path to the output exp folder in the corresponding script (s8M.sh, s10M.sh, s10u.sh, and s12M.sh) and run the script. The twd path is the path to best_bundle.pth file from 6 months speech self-supervised training. 
+To train the VG-W2V2 model for 2-6 months infants' audiovisual experiments (6-12 months of age), specify the path to the subsets folder (which includes json data files for different splits) and the path to the output exp folder in the corresponding script (s8M.sh, s10M.sh, s10u.sh, and s12M.sh) and run the script. The twd path is the path to best_bundle.pth file from 6 months speech self-supervised training. 
 
 ## Audiovisual similarity score matrix (S)
 
