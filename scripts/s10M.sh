@@ -3,7 +3,6 @@ export PATH="/projappl/project_2001315/khazar/con/vf/bin:$PATH"
 export CUDA_VISIBLE_DEVICES=0,1,2,3
 
 data_root=$1
-fb_w2v2_weights_fn="../../../../model/wav2vec_small.pt"
 exp_dir="../../exp6M/expS2/"
 pretrained_root="../../../../hubertAndDINO"
 twd="../../twd/"
