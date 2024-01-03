@@ -30,9 +30,11 @@ The data for the joint speech self-supervised training and visually grounded spe
 
 ## Model training and validation
 
-To train the model for speech-self supervised learning SSL-6M specify the tsv file path as well as the output path (for saving the trained model) in scripts/ssl.sh and run the script.
+Please follow the source repositories for downloading and saving audio files from SpokenCOCO and LibrisPeech audio files, MSCOCO images as well as json file names for Karpathy split. The main difference here is that instead of the SpokenCOCO_train_unrolled_karpathy.json file, the model reads json files provided for each audiovisual training subset and speech-only training set provided within the splits folder. The subset1, subset2, and subset3 json files include data for 8 months, 10 months, and 12 months age infant, respectively, whereas the subset0A includes data for 10 months uniform distribution.
 
-To train the VG-W2V2 model for 2-6 months infants' audiovisual experiments (6-12 months of age), specify the path to VGS-infant json files in the corresponding script (s8M.sh, s10M.sh, s10u.sh, and s12M.sh) and run the script.
+To train the model for speech-self supervised learning SSL-6M specify the tsv file path as well as the output exp path (for saving the trained model) in scripts/ssl.sh and run the script.
+
+To train the VG-W2V2 model for 2-6 months infants' audiovisual experiments (6-12 months of age), specify the path to VGS-infant json file and the output exp folder in the corresponding script (s8M.sh, s10M.sh, s10u.sh, and s12M.sh) and run the script.
 
 ## Audiovisual similarity score matrix (S)
 
