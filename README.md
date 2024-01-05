@@ -28,7 +28,7 @@ The joint model, incorporating both speech self-supervised learning and visually
 
 The dataset utilized for the speech self-supervised learning task is SSL-6M, encompassing speech captions totaling 1049 hours of speech. This dataset is a combination of a randomly selected subset from the LibriSpeech training set (175,892 clips, 602.6 hours) available at https://www.openslr.org/12, and the SpokenCOCO training set (370,121 clips, 446.4 hours) accessible at https://groups.csail.mit.edu/sls/downloads/placesaudio/index.cgi.
 
-For the joint training of speech self-supervised learning and visually grounded speech processing, the dataset used is VGS-infant. This dataset includes subsets that mirror the statistical patterns in infants' audiovisual experiences at 2, 4, and 6 months intervals. The images and audio captions within VGS-infant are subsets selected from MSCOCO images (https://cocodataset.org) paired with SpokenCOCO captions. The list of speech and image files employed in both SSL-6M and VGS-infant training scenarios is available in the 'splits.zip' file.
+For the joint training of speech self-supervised learning and visually grounded speech processing, the dataset used is VGS-infant. This dataset includes subsets that mirror the statistical patterns in infants' audiovisual experiences at 2, 4, and 6 months intervals. The images and audio captions within VGS-infant are subsets selected from MSCOCO images (https://cocodataset.org) paired with SpokenCOCO captions. The list of speech and image files employed in both SSL-6M and VGS-infant training scenarios is available in the 'splits.zip' file. The JSON files for 'subset1,' 'subset2,' and 'subset3' include data corresponding to 8 months, 10 months, and 12 months age infants, respectively. Additionally, 'subset0A' contains data for a 10-month uniform distribution. The 'tsv' files used for training and validating the 6-month speech-only model are included in the SSL-6M folder.
 
 # How to Use
 
@@ -36,7 +36,7 @@ For the joint training of speech self-supervised learning and visually grounded 
 
 Please refer to the source repositories for the downloading and storage of audio files from SpokenCOCO and LibriSpeech, MSCOCO images, and JSON file names for the Karpathy split. Notably, in this work, the model reads JSON files specific to each audiovisual training subset instead of utilizing the 'SpokenCOCO_train_unrolled_karpathy.json' file.
 
-The JSON files for 'subset1,' 'subset2,' and 'subset3' include data corresponding to 8 months, 10 months, and 12 months age infants, respectively. Additionally, 'subset0A' contains data for a 10-month uniform distribution. The 'tsv' files used for training and validating the 6-month speech-only model are included in the 'splits' folder.
+
 
 To train the model for speech self-supervised learning (SSL-6M), specify the path to 'ssl6M_root' and the output experiment path (for saving the trained model) in the 'scripts/ssl.sh.' Execute the script, and after completion, utilize the 'best_bundle.pth' file as a starting point for the audiovisual learning pipeline.
 
