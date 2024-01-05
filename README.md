@@ -11,7 +11,7 @@ and
 
     https://github.com/jasonppy/word-discovery
 
-Specifically, the scripts located in the 'datasets,' 'models,' 'steps,' and the 'run_spokencoco.py' file have been derived from the aforementioned repositories. The model (VG-W2V2) and data loading scripts are adopted from the "word-discovery2, while the model training and validation scripts are adopted from the "FaST-VGS-Family". This integration allows for simultaneous training of VGS and Wav2Vec 2.0 pipelines. Any modifications made to the original code are diligently documented with comments in the corresponding script lines.
+Specifically, the scripts located in the 'datasets,' 'models,' 'steps,' and the 'run_spokencoco.py' file have been derived from the aforementioned repositories. The model (VG-W2V2) and data loading scripts are adopted from the "word-discovery", while the model training and validation scripts are adopted from the "FaST-VGS-Family". This integration allows for simultaneous training of VGS and Wav2Vec 2.0 pipelines. Any modifications made to the original code are diligently documented with comments in the corresponding script lines.
 
 
 # Model Description
