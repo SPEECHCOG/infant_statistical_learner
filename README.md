@@ -8,6 +8,8 @@ This project's model is built upon the contributions from the following reposito
 
     https://github.com/jasonppy/FaST-VGS-Family
 
+    https://github.com/jasonppy/word-discovery
+
 Specifically, the scripts located in the 'datasets,' 'models,' 'steps,' and the 'run_spokencoco.py' file have been derived from the aforementioned repositories. The model (VG-W2V2) and data loading scripts are adopted from https://github.com/jasonppy/word-discovery, while the model training and validation scripts are adopted from https://github.com/jasonppy/FaST-VGS-Family. This integration allows for simultaneous training of VGS and Wav2Vec 2.0 pipelines. Any modifications made to the original code are diligently documented with comments in the corresponding script lines.
 
 
