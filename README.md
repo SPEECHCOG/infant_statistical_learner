@@ -13,7 +13,7 @@ https://github.com/jasonppy/FaST-VGS-Family
 https://github.com/jasonppy/word-discovery
 
 
-Especifically, the scripts in "datasets", "models", "steps" as well as run_spokencoco.py are copied from the above repositories. The model (VG-W2V2) and data loading scripts are adopted from https://github.com/jasonppy/word-discovery, whereas the model training and validation scripts are adopted from https://github.com/jasonppy/FaST-VGS-Family, to have simultaneous training of VGS and wave2vec 2.0 pipelines. All further changes are commented in the corresponding script lines.
+Especically, the scripts in "datasets", "models", "steps" as well as run_spokencoco.py are copied from the above repositories. The model (VG-W2V2) and data loading scripts are adopted from https://github.com/jasonppy/word-discovery, whereas the model training and validation scripts are adopted from https://github.com/jasonppy/FaST-VGS-Family in order to have simultaneous training of VGS and wav2vec2.0 pipelines. All changes with respect to the original code are commented in the corresponding script lines.
 
 
 # Model Description
@@ -22,7 +22,7 @@ The model is VG-W2V2 and conists of an image procesing pipeline, a speech proces
 
 # Data
 
-The data for speech self-supervised learning task is SSL-6M that includes speech captions totalling to 1049 hours of speech. The data is a combination of a subset randomly selected from LibriSpeech (https://www.openslr.org/12) training set (175892 clips, 602.6 h) and SpokenCOCO (https://groups.csail.mit.edu/sls/downloads/placesaudio/index.cgi) training set (370121 clips, 446.4 h). 
+The data for speech self-supervised learning task is SSL-6M that includes speech captions totalling to 1049 hours of speech. The data is a combination of a subset randomly selected from LibriSpeech (https://www.openslr.org/12) training set (175 892 clips, 602.6 h) and SpokenCOCO (https://groups.csail.mit.edu/sls/downloads/placesaudio/index.cgi) training set (370 121 clips, 446.4 h). 
 
 The data for the joint speech self-supervised training and visually grounded speech processing is VGS-infant and includes subsets that reflect the statistics of the infants' audiovisual experinece for the intervals of 2, 4, and 6 months. The images and audio captions are subsets chosen from MSCOCO images (https://cocodataset.org) paired with SpokenCOCO captions. Please the list of the speech and image files that are utilized in each of the SSL-6M and VGS-infant training scenarios in splits.zip file. 
 
