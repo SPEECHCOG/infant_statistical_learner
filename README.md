@@ -4,8 +4,7 @@
 
 This repository includes the instructions and scripts for the experiments outlined in the paper:
 
-**Khorrami, K., & Räsänen, O. (2024).**  
-*A model of early word acquisition based on realistic-scale audiovisual naming events.* Speech Communication.  [Read the Paper](https://www.sciencedirect.com/science/article/pii/S0167639324001407?via%3Dihub)
+**Khorrami, K., & Räsänen, O. (2024).**  *A model of early word acquisition based on realistic-scale audiovisual naming events.* Speech Communication.  [Read the Paper](https://www.sciencedirect.com/science/article/pii/S0167639324001407?via%3Dihub)
 
 # Model Source
 
