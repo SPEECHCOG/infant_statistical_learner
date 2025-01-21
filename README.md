@@ -20,7 +20,7 @@ Specifically, the scripts located in the 'datasets,' 'models,' 'steps,' and the 
 
 # Model Description
 
-![My Image](images/model.png)
+![My Image](plots/model.png)
 
 The model, denoted as VG-W2V2, is a complex system consisting of three main pipelines: an image processing pipeline, a speech processing pipeline, and a cross-modal learning pipeline. Each pipeline is trained with specific methodologies to achieve its respective objectives.
 
