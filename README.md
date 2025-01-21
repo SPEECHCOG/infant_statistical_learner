@@ -20,6 +20,8 @@ Specifically, the scripts located in the 'datasets,' 'models,' 'steps,' and the 
 
 # Model Description
 
+![My Image](images/model.png)
+
 The model, denoted as VG-W2V2, is a complex system consisting of three main pipelines: an image processing pipeline, a speech processing pipeline, and a cross-modal learning pipeline. Each pipeline is trained with specific methodologies to achieve its respective objectives.
 
 The image processing pipeline utilizes a DINO model based on ViT (Vision Transformer), trained in an unsupervised manner. It incorporates pretrained weights from DINO-small. The speech processing pipeline employs a Wav2Vec 2.0 model. Similar to the original model, it undergoes training with a combination of reconstruction (for the masking block) and diversity (for the quantization block) losses. Notably, the speech processing block is randomly initialized for the speech self-supervised learning task.
